@@ -64,18 +64,22 @@ const SignUp = () => {
    return (
       <div className="width-[100%] min-h-[100vh]  bg-[#fff] flex">
          <div className="w-[65%] bg-[#F0F3FD] h-cover p-[2rem] hidden sm:block">
-            <LogoImg />
+            <Link href="/">
+               <LogoImg />
+            </Link>
             <div className="mt-[10rem]">
                <Image src="/login-bg.svg" alt="bg" width={300} height={400} className="w-[50%] m-auto" />
             </div>
          </div>
          <div className="w-[100%] md:w-[35%] p-[2rem]">
             <div className="md:hidden">
-               <LogoImg />
+               <Link href="/">
+                  <LogoImg />
+               </Link>
             </div>
 
             <div className="mt-[4rem] md:mt-[8rem] px-0 lg:px-[2.5rem]">
-               <h1 className="text-[22px] md:text-[25px] font-[500] text-[#2a3547]">Welcome to Conversify</h1>
+               <h1 className="text-[20px] md:text-[23px] font-[500] text-[#2a3547]">Welcome to Conversify</h1>
                <p className="mt-[.6rem] mb-[1.4rem] text-[14px] md:text-[15px]">Global inter-cultural social network</p>
 
                {steps === TStepsEnum.STEP_INFO && (
@@ -123,7 +127,7 @@ const SignUp = () => {
                               Proceed
                            </button>
                            <div className="mt-7">
-                              <p>
+                              <p className="font-[500]">
                                  Already have an Account?{" "}
                                  <span className="text-[15px] text-[#5D87FF]">
                                     <Link href="/signin">SignIn</Link>
