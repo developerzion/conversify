@@ -11,20 +11,12 @@ import { Formik, Form, ErrorMessage } from "formik";
 const SignUp = () => {
    const [initialState, setInitialState] = useState<any>(initialValues);
 
-   const { fullName, email, username, password, confirmPassword, avatarUrl, terms } = initialState;
+   const { email, password } = initialState;
 
    const fields: TFields[] = [
       { name: "email", label: "Email Address", placeholder: "", val: email, type: "text" },
       { name: "password", label: "Password", placeholder: "*********", val: password, type: "password" },
    ];
-
-   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      setInitialState((prevState: TInitialState) => ({
-         ...prevState,
-         [name]: value,
-      }));
-   };
 
    const termsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { checked } = e.target;
@@ -88,10 +80,21 @@ const SignUp = () => {
                               </div>
                            );
                         })}
+                        <div className="flex items-center justify-between text-[13px] mt-1 mb-2">
+                           <div className="flex items-center gap-1">
+                              <input
+                                 type="checkbox"
+                                 onChange={termsHandler}
+                                 className="w-[17px] h-[17px] outline-[#5D87FF]"
+                              />
+                              Remember this device
+                           </div>
+                           <Link href="/" passHref><span className="text-[#5D87FF]">Forgot password</span></Link>
+                        </div>
                         <button className="py-[.8rem] mt-[.8rem] rounded-[7px] w-[100%] bg-[#5D87FF] text-[#fff] font-[500]">
                            SignIn
                         </button>
-                        <div className="mt-7">
+                        <div className="mt-7 text-[15px]">
                            <p>
                               New to Conversify?{" "}
                               <span className="text-[15px] text-[#5D87FF]">

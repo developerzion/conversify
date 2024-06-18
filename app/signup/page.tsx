@@ -126,8 +126,8 @@ const SignUp = () => {
                            <button className="py-[.8rem] mt-[.8rem] rounded-[7px] w-[100%] bg-[#5D87FF] text-[#fff] font-[500]">
                               Proceed
                            </button>
-                           <div className="mt-7">
-                              <p className="font-[500]">
+                           <div className="mt-7 text-[15px]">
+                              <p>
                                  Already have an Account?{" "}
                                  <span className="text-[15px] text-[#5D87FF]">
                                     <Link href="/signin">SignIn</Link>
