@@ -1,9 +1,5 @@
-import MainLayout from "./components/hoc/layout/main-layout";
+import Link from "next/link";
 
 export default function Home() {
-   return (
-      <MainLayout>
-         <div className=""></div>
-      </MainLayout>
-   );
+   return <Link href="/signin">Click to navigate to sign in page</Link>;
 }

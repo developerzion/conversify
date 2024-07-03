@@ -39,14 +39,14 @@ export default function Profile() {
                         </div>
                      </div>
                   </div>
-                  {/* <hr /> */}
+                  <hr />
                </div>
-               {/* <div className="px-6 pt-5 pb-8">
+               <div className="px-6 pt-5 pb-8">
                   <button className="w-full text-center border border-indigo-600 py-[.4rem] text-indigo-600 rounded-md">
                      Logout
                   </button>
                   <div className="flex justify-between"></div>
-               </div> */}
+               </div>
             </div>
          </PopoverPanel>
       </Popover>

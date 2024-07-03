@@ -6,28 +6,36 @@ import Image from "next/image";
 import { initialValues, TInitialState, SignInSchema, TFields } from "./types";
 import Link from "next/link";
 import { Formik, Form, ErrorMessage } from "formik";
-// import { toast } from "react-toastify";
+import { useMutation } from "@apollo/client";
+import { LOGIN_MUTATION } from "@/lib/mutations/login";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import Loader from "../components/shared/loader";
 
 const SignUp = () => {
+   const router = useRouter();
    const [initialState, setInitialState] = useState<any>(initialValues);
-
    const { email, password } = initialState;
 
    const fields: TFields[] = [
-      { name: "email", label: "Email Address", placeholder: "", val: email, type: "text" },
+      { name: "email", label: "Email Address", placeholder: "email", val: email, type: "text" },
       { name: "password", label: "Password", placeholder: "*********", val: password, type: "password" },
    ];
 
-   const termsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { checked } = e.target;
-      setInitialState((prevState: TInitialState) => ({
-         ...prevState,
-         terms: checked,
-      }));
-   };
+   const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION);
 
    const handleSubmit = (values: any) => {
-      console.log(values);
+      loginMutation({
+         variables: {
+            email: values.email,
+            password: values.password,
+         },
+      })
+         .then(() => {
+            toast.success("Login successful");
+            router.push("/chat");
+         })
+         .catch((e) => toast.error(e.message));
    };
 
    return (
@@ -53,7 +61,6 @@ const SignUp = () => {
                <p className="mt-[.2rem] md:mt-[.6rem] mb-[1.4rem] text-[14px] md:text-[15px]">
                   Global inter-cultural social network
                </p>
-
                <Formik
                   initialValues={initialState}
                   enableReinitialize
@@ -78,25 +85,28 @@ const SignUp = () => {
                                        placeholder={placeholder}
                                     />
                                  </div>
-                                 <ErrorMessage className="font-[500] text-red-500 text-[13px] mt-1" name={name} component="div" />
+                                 <ErrorMessage
+                                    className="font-[500] text-red-500 text-[13px] mt-1"
+                                    name={name}
+                                    component="div"
+                                 />
                               </div>
                            );
                         })}
                         <div className="flex items-center justify-between text-[13px] mt-1 mb-2">
                            <div className="flex items-center gap-1">
-                              <input
-                                 type="checkbox"
-                                 onChange={termsHandler}
-                                 className="w-[17px] h-[17px] outline-[#5D87FF]"
-                              />
+                              <input type="checkbox" className="w-[17px] h-[17px] outline-[#5D87FF]" />
                               Remember this device
                            </div>
                            <Link href="/" passHref>
                               <span className="text-[#5D87FF]">Forgot password</span>
                            </Link>
                         </div>
-                        <button className="py-[.8rem] mt-[.8rem] rounded-[7px] w-[100%] bg-[#5D87FF] text-[#fff] font-[500]">
-                           SignIn
+                        <button
+                           disabled={loading}
+                           className="py-[.8rem] mt-[.8rem] rounded-[7px] w-[100%] bg-[#5D87FF] text-[#fff] font-[500] flex justify-center"
+                        >
+                           {loading ? <Loader /> : "Sign In"}
                         </button>
                         <div className="mt-7 text-[15px]">
                            <p>

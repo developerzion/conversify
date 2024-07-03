@@ -152,7 +152,6 @@ const Index = () => {
                      />
                      <div className="flex relative gap-5">
                         <PaperAirplaneIcon className="w-[20px] h-[20px] cursor-pointer -rotate-45" />
-
                         <div>
                            <input
                               type="file"

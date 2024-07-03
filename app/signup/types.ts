@@ -37,6 +37,7 @@ export type TFields = {
    placeholder: string;
    val: string;
    type: string;
+   show: boolean;
 };
 
 export enum TStepsEnum {
