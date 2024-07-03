@@ -10,7 +10,7 @@ const MainLayout = ({ children }: IProps) => {
    return (
       <>
          <Header />
-         {children}
+         <div className="pt-[5.5rem]">{children}</div>
          <Footer />
       </>
    );

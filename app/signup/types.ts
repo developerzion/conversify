@@ -21,14 +21,14 @@ export const initialValues: TInitialState = {
 };
 
 export const SignUpSchema = Yup.object().shape({
-   fullName: Yup.string().min(2).required("Required"),
-   email: Yup.string().email("Invalid email").required("Required"),
-   username: Yup.string().min(2).required("Required"),
-   password: Yup.string().min(2).required("Required"),
+   fullName: Yup.string().min(2).required("Full name is required"),
+   email: Yup.string().email("Invalid email").required("Email is required"),
+   username: Yup.string().min(2).required("Username is required"),
+   password: Yup.string().min(2).required("Password is required"),
    confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match")
       .min(2)
-      .required("Required"),
+      .required("Password is required"),
 });
 
 export type TFields = {

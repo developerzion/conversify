@@ -41,7 +41,7 @@ const SignUp = () => {
                <Image src="/login-bg.svg" alt="bg" width={300} height={400} className="w-[50%] m-auto" />
             </div>
          </div>
-         <div className="w-[100%] md:w-[35%] p-[2rem]">
+         <div className="w-[100%] md:w-[35%] py-[2rem] px-[1.5rem]">
             <div className="md:hidden">
                <Link href="/">
                   <LogoImg />
@@ -49,8 +49,10 @@ const SignUp = () => {
             </div>
 
             <div className="mt-[4rem] md:mt-[8rem] px-0 lg:px-[2.5rem]">
-               <h1 className="text-[20px] md:text-[23px] font-[500] text-[#2a3547]">Welcome to Conversify</h1>
-               <p className="mt-[.6rem] mb-[2rem] text-[14px] md:text-[15px]">Global inter-cultural social network</p>
+               <h1 className="text-[20px] md:text-[23px] font-[600] text-[#000000]">Welcome to Conversify</h1>
+               <p className="mt-[.2rem] md:mt-[.6rem] mb-[1.4rem] text-[14px] md:text-[15px]">
+                  Global inter-cultural social network
+               </p>
 
                <Formik
                   initialValues={initialState}
@@ -61,10 +63,10 @@ const SignUp = () => {
                   {({ values, handleBlur, handleChange }) => (
                      <Form>
                         {fields.map((field: TFields) => {
-                           const { name, type, val, label, placeholder } = field;
+                           const { name, type, label, placeholder } = field;
                            return (
                               <div className="mb-[1.3rem]" key={name}>
-                                 <label className="font-[500] text-[#2a3547] text-[14px] md:text-[15px]">{label}</label>
+                                 <label className="font-[500] text-[#2a3547] text-[13px] md:text-[14px]">{label}</label>
                                  <div className="mt-[6px]">
                                     <input
                                        type={type}
@@ -76,7 +78,7 @@ const SignUp = () => {
                                        placeholder={placeholder}
                                     />
                                  </div>
-                                 <ErrorMessage className="text-red-500 text-[13px] mt-1" name={name} component="div" />
+                                 <ErrorMessage className="font-[500] text-red-500 text-[13px] mt-1" name={name} component="div" />
                               </div>
                            );
                         })}
@@ -89,7 +91,9 @@ const SignUp = () => {
                               />
                               Remember this device
                            </div>
-                           <Link href="/" passHref><span className="text-[#5D87FF]">Forgot password</span></Link>
+                           <Link href="/" passHref>
+                              <span className="text-[#5D87FF]">Forgot password</span>
+                           </Link>
                         </div>
                         <button className="py-[.8rem] mt-[.8rem] rounded-[7px] w-[100%] bg-[#5D87FF] text-[#fff] font-[500]">
                            SignIn

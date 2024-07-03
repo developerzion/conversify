@@ -15,9 +15,9 @@ const SignUp = () => {
    const { fullName, email, username, password, confirmPassword, avatarUrl, terms } = initialState;
 
    const fields: TFields[] = [
-      { name: "fullName", label: "Name", placeholder: "", val: fullName, type: "text" },
-      { name: "email", label: "Email Address", placeholder: "", val: email, type: "text" },
-      { name: "username", label: "Username", placeholder: "", val: username, type: "text" },
+      { name: "fullName", label: "Name", placeholder: "Enter name", val: fullName, type: "text" },
+      { name: "email", label: "Email Address", placeholder: "Enter email", val: email, type: "text" },
+      { name: "username", label: "Username", placeholder: "Enter username", val: username, type: "text" },
       { name: "password", label: "Password", placeholder: "*********", val: password, type: "password" },
       {
          name: "confirmPassword",
@@ -71,7 +71,7 @@ const SignUp = () => {
                <Image src="/login-bg.svg" alt="bg" width={300} height={400} className="w-[50%] m-auto" />
             </div>
          </div>
-         <div className="w-[100%] md:w-[35%] p-[2rem]">
+         <div className="w-[100%] md:w-[35%] py-[2rem] px-[1.5rem]">
             <div className="md:hidden">
                <Link href="/">
                   <LogoImg />
@@ -79,8 +79,8 @@ const SignUp = () => {
             </div>
 
             <div className="mt-[4rem] md:mt-[8rem] px-0 lg:px-[2.5rem]">
-               <h1 className="text-[20px] md:text-[23px] font-[500] text-[#2a3547]">Welcome to Conversify</h1>
-               <p className="mt-[.6rem] mb-[1.4rem] text-[14px] md:text-[15px]">Global inter-cultural social network</p>
+               <h1 className="text-[20px] md:text-[23px] font-[600] text-[#000000]">Welcome to Conversify</h1>
+               <p className="mt-[.2rem] md:mt-[.6rem] mb-[1.4rem] text-[14px] md:text-[15px]">Global inter-cultural social network</p>
 
                {steps === TStepsEnum.STEP_INFO && (
                   <Formik
@@ -92,10 +92,10 @@ const SignUp = () => {
                      {({ values, handleBlur, setValues }) => (
                         <Form>
                            {fields.map((field: TFields) => {
-                              const { name, type, val, label, placeholder } = field;
+                              const { name, type, label, placeholder } = field;
                               return (
                                  <div className="mb-[1.3rem]" key={name}>
-                                    <label className="font-[500] text-[#2a3547] text-[14px] md:text-[15px]">
+                                    <label className="font-[500] text-[#2a3547] text-[13px] md:text-[14px]">
                                        {label}
                                     </label>
                                     <div className="mt-[6px]">
@@ -116,7 +116,7 @@ const SignUp = () => {
                                        />
                                     </div>
                                     <ErrorMessage
-                                       className="text-red-500 text-[13px] mt-1"
+                                       className="text-red-500 font-[500] text-[13px] mt-1"
                                        name={name}
                                        component="div"
                                     />
