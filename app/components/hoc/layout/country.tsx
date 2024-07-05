@@ -12,9 +12,9 @@ type TCountry = {
 
 const countries: TCountry[] = [
    { logo: "/uk.png", name: "English", label: "English (UK)" },
+   { logo: "/nigeria.png", name: "arabic", label: "Yoruba (Nigeria)" },
    { logo: "/chinese.png", name: "中国人 (Chinese)", label: "中国人 (Chinese)" },
    { logo: "/french.png", name: "french", label: "française (French)" },
-   { logo: "/arabic.webp", name: "arabic", label: "عربي (Arabic)" },
 ];
 
 export default function Country() {

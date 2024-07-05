@@ -8,7 +8,10 @@ import apolloClient from "@/lib/apollo";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 const font = Montserrat({ subsets: ["latin"] });
-
+import { persistor, store } from "./store/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import Loader from "./components/shared/loader";
 
 // export const metadata: Metadata = {
 //    title: "Create Next App",
@@ -23,10 +26,26 @@ export default function RootLayout({
    return (
       <html lang="en">
          <body className={font.className}>
-            <ApolloProvider client={apolloClient}>
-               <ToastContainer style={{ fontSize: "13px" }} />
-               {children}
-            </ApolloProvider>
+            <Provider store={store}>
+               <PersistGate loading={null} persistor={persistor}>
+                  <ApolloProvider client={apolloClient}>
+                     <ToastContainer
+                        position="bottom-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        className="text-[13px]"
+                     />
+                     {children}
+                  </ApolloProvider>
+               </PersistGate>
+            </Provider>
          </body>
       </html>
    );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { LogoImg } from "../components/hoc/svgIcons";
 import Image from "next/image";
 import { initialValues, TInitialState, SignInSchema, TFields } from "./types";
@@ -11,28 +11,29 @@ import { LOGIN_MUTATION } from "@/lib/mutations/login";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Loader from "../components/shared/loader";
+import { useAppDispatch } from "../store/utils/useAppDispatch";
+import { loginUser } from "../store/features/userSlice";
 
 const SignUp = () => {
+   const dispatch = useAppDispatch();
    const router = useRouter();
-   const [initialState, setInitialState] = useState<any>(initialValues);
-   const { email, password } = initialState;
 
    const fields: TFields[] = [
-      { name: "email", label: "Email Address", placeholder: "email", val: email, type: "text" },
-      { name: "password", label: "Password", placeholder: "*********", val: password, type: "password" },
+      { name: "email", label: "Email Address", placeholder: "email", type: "text" },
+      { name: "password", label: "Password", placeholder: "*********", type: "password" },
    ];
 
    const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION);
 
-   const handleSubmit = (values: any) => {
+   const handleSubmit = (values: TInitialState) => {
       loginMutation({
          variables: {
             email: values.email,
             password: values.password,
          },
       })
-         .then(() => {
-            toast.success("Login successful");
+         .then(({ data: { loginAuth } }) => {
+            dispatch(loginUser(loginAuth));
             router.push("/chat");
          })
          .catch((e) => toast.error(e.message));
@@ -62,12 +63,12 @@ const SignUp = () => {
                   Global inter-cultural social network
                </p>
                <Formik
-                  initialValues={initialState}
+                  initialValues={initialValues}
                   enableReinitialize
                   validationSchema={SignInSchema}
                   onSubmit={handleSubmit}
                >
-                  {({ values, handleBlur, handleChange }) => (
+                  {({ handleBlur, handleChange }) => (
                      <Form>
                         {fields.map((field: TFields) => {
                            const { name, type, label, placeholder } = field;
@@ -78,7 +79,6 @@ const SignUp = () => {
                                     <input
                                        type={type}
                                        name={name}
-                                       value={values[name]}
                                        className="w-[100%] border-[1px] border-[#DFE5EF] py-[.7rem] rounded-[7px] px-[12px] outline-[#5C87FF] text-[14px]"
                                        onChange={handleChange}
                                        onBlur={handleBlur}

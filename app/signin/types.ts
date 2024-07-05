@@ -19,6 +19,6 @@ export type TFields = {
    name: string;
    label: string;
    placeholder: string;
-   val: string;
+   // val: string;
    type: string;
 };

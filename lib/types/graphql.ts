@@ -29,6 +29,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createUser: UserModel;
   loginAuth: LoginModel;
+  updateUserProfile: UserModel;
 };
 
 
@@ -46,9 +47,16 @@ export type MutationLoginAuthArgs = {
   password: Scalars['String']['input'];
 };
 
+
+export type MutationUpdateUserProfileArgs = {
+  avatarUrl: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
-  getUser: Array<UserModel>;
+  getUser: UserModel;
 };
 
 export type UserModel = {
