@@ -1,10 +1,12 @@
 import { gql } from "@apollo/client";
 
-
-export const LOGIN_MUTATION = gql(/* GraphQL */ `
-   mutation loginAuth($email: String!, $password: String!) {
-      loginAuth(email: $email, password: $password) {
-         user {
+export const GET_FRIENDS = gql`
+   query getFriends {
+      getFriends {
+         friendsId
+         senderId
+         receiverId
+         receiver {
             userId
             name
             email
@@ -14,7 +16,6 @@ export const LOGIN_MUTATION = gql(/* GraphQL */ `
             createdAt
             updatedAt
          }
-         token
       }
    }
-`);
+`;

@@ -3,12 +3,13 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import userSlice from "./features/userSlice";
 import friendRequestSlice from "./features/friendRequestSlice";
+import chatSlice from "./features/chatSlice";
 
 const persistConfig = {
    key: "_root_",
    storage,
    whitelist: ["user"],
-   blacklist: ["friendRequest"], // specify reducers to be excluded from persisting
+   blacklist: ["friendRequest", "chat"], // specify reducers to be excluded from persisting
 };
 
 // Create a persisted reducer
@@ -18,6 +19,7 @@ export const store = configureStore({
    reducer: {
       user: persistedReducer,
       friendRequest: friendRequestSlice,
+      chat: chatSlice,
    },
 });
 

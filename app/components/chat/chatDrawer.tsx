@@ -1,23 +1,27 @@
 import useUserState from "@/app/store/hooks/useUserState";
+import { useAppDispatch } from "@/app/store/utils/useAppDispatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { useState } from "react";
+import useChatState from "@/app/store/hooks/chatState";
+import { closeChatModal } from "@/app/store/features/chatSlice";
 
-interface IProps {
-   isOpen: boolean;
-   toggleDrawer: () => void;
-}
-
-function ChatDrawer({ isOpen, toggleDrawer }: IProps) {
+function ChatDrawer() {
+   const dispatch = useAppDispatch();
    const {
       user: { avatarUrl, name },
    } = useUserState();
+
+   const { open } = useChatState();
+
+   const toggleDrawer = () => {
+      dispatch(closeChatModal());
+   };
 
    return (
       <div className="flex md:hidden">
          <div
             className={`fixed top-0 left-0 z-20 w-[85%] h-full transition-all duration-500 transform ${
-               isOpen ? "" : "-translate-x-full"
+               open ? "" : "-translate-x-full"
             } bg-white shadow-lg peer-checked:translate-x-0`}
          >
             <div className="px-6 pt-5 pb-4">

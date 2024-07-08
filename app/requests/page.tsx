@@ -7,12 +7,12 @@ import RequestRows from "../components/requests/requestRows";
 import { GET_FRIEND_REQUESTS } from "@/lib/queries/user";
 import { useQuery } from "@apollo/client";
 import Loader from "../components/shared/loader";
+import { GetFriendRequestsQuery } from "@/lib/types/gql/graphql";
 
 const FriendRequests = () => {
-   const { loading, error, data } = useQuery(GET_FRIEND_REQUESTS);
+   const { loading, data } = useQuery(GET_FRIEND_REQUESTS);
 
    const rows = data?.getFriendRequests || [];
-
    return (
       <MainLayout>
          <div className="py-[1.5rem] mt-[.1rem] max-w-6xl m-auto bg-[#FEFEFE] px-2 md:px-0">
@@ -24,7 +24,7 @@ const FriendRequests = () => {
                      <Loader />
                   </div>
                ) : rows.length ? (
-                  rows.map((row: any, idx: number) => {
+                  rows.map((row: GetFriendRequestsQuery["getFriendRequests"][number], idx: number) => {
                      return <RequestRows key={idx} row={row} />;
                   })
                ) : (

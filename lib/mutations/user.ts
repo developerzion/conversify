@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const UPDATE_PROFILE = gql`
-   mutation ($name: String!, $avatarUrl: String!, $username: String!) {
+   mutation updateUserProfile($name: String!, $avatarUrl: String!, $username: String!) {
       updateUserProfile(name: $name, avatarUrl: $avatarUrl, username: $username) {
          userId
          name
@@ -16,7 +16,7 @@ export const UPDATE_PROFILE = gql`
 `;
 
 export const UPDATE_PASSWORD = gql`
-   mutation ($password: String!) {
+   mutation updatePassword($password: String!) {
       updatePassword(password: $password) {
          userId
          name
@@ -31,9 +31,15 @@ export const UPDATE_PASSWORD = gql`
 `;
 
 export const SEND_FRIEND_REQUEST = gql`
-   mutation ($email: String!) {
+   mutation sendFriendRequest($email: String!) {
       sendFriendRequest(email: $email) {
          friendRequestId
       }
+   }
+`;
+
+export const ACCEPT_DECLINE_FRIEND_REQUEST = gql`
+   mutation acceptDeclineRequest($friendRequestId: String!, $status: String!) {
+      acceptDeclineRequest(friendRequestId: $friendRequestId, status: $status)
    }
 `;

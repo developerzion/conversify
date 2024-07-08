@@ -46,7 +46,7 @@ const Header = () => {
          </div>
 
          <div className="w-full pt-[7rem] max-w-6xl m-auto px-2 md:px-0 ">
-            <div className="bg-[#83FFD5] text-[13px] p-3 rounded">
+            <div className="bg-[#83FFD5] text-[12px] md:text-[13px] p-3 rounded-xl md:rounded">
                Live chat is an instant messaging tool for real-time online communication, commonly used for customer
                support and direct interaction between users and businesses
             </div>
