@@ -23,7 +23,7 @@ export type TFields = {
 
 export const UpdateSchema = Yup.object().shape({
    fullName: Yup.string().min(2).required("Full name is required"),
-   email: Yup.string().email("Invalid email").required("Email is required"),
+   email: Yup.string().email("Invalid email").required("User email is required"),
    username: Yup.string().min(2).required("Username is required"),
 });
 

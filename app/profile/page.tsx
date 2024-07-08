@@ -108,7 +108,7 @@ const Index = () => {
 
    return (
       <MainLayout>
-         <div className="py-[1.5rem] mt-[.1rem] max-w-6xl m-auto bg-[#FEFEFE] px-3">
+         <div className="py-[1.5rem] mt-[.1rem] max-w-6xl m-auto bg-[#FEFEFE] px-2 md:px-0">
             <Hamburger title="Account Settings" path="Profile section" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">

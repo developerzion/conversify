@@ -11,3 +11,29 @@ export const GET_USER = gql`
       }
    }
 `;
+
+export const GET_FRIEND_REQUESTS = gql`
+   query {
+      getFriendRequests {
+         request {
+            friendRequestId
+            sender
+            receiver
+            requestStatus
+            requestSentTo
+            createdAt
+            updatedAt
+         }
+         user {
+            userId
+            name
+            email
+            avatarUrl
+            username
+            password
+            createdAt
+            updatedAt
+         }
+      }
+   }
+`;

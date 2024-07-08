@@ -10,7 +10,8 @@ import Image from "next/image";
 import ChatDrawer from "./chatDrawer";
 
 const Chat = () => {
-   const [isOpen, setIsOpen] = useState(false); // Initial state set to true for the drawer to be open
+   const [isOpen, setIsOpen] = useState(false);
+   // Initial state set to true for the drawer to be open
 
    const sendMessageHandler = () => {
       console.log("send message");

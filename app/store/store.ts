@@ -1,13 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; 
+import storage from "redux-persist/lib/storage";
 import userSlice from "./features/userSlice";
+import friendRequestSlice from "./features/friendRequestSlice";
 
 const persistConfig = {
    key: "_root_",
    storage,
    whitelist: ["user"],
-   // blacklist: ['navigation'], // specify reducers to be excluded from persisting
+   blacklist: ["friendRequest"], // specify reducers to be excluded from persisting
 };
 
 // Create a persisted reducer
@@ -16,6 +17,7 @@ const persistedReducer = persistReducer(persistConfig, userSlice);
 export const store = configureStore({
    reducer: {
       user: persistedReducer,
+      friendRequest: friendRequestSlice,
    },
 });
 

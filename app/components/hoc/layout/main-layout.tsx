@@ -31,7 +31,7 @@ const MainLayout = ({ children }: IProps) => {
       return (
          <>
             <Header />
-            <div className="pt-[5.5rem]">{children}</div>
+            {children}
             <Footer />
          </>
       );

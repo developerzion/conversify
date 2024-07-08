@@ -11,7 +11,7 @@ export const initialValues: TInitialState = {
 };
 
 export const SignInSchema = Yup.object().shape({
-   email: Yup.string().email("Invalid email").required("Email is required"),
+   email: Yup.string().email("Invalid email").required("User email is required"),
    password: Yup.string().min(2).required("Password is required"),
 });
 

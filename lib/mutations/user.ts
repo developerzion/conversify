@@ -29,3 +29,11 @@ export const UPDATE_PASSWORD = gql`
       }
    }
 `;
+
+export const SEND_FRIEND_REQUEST = gql`
+   mutation ($email: String!) {
+      sendFriendRequest(email: $email) {
+         friendRequestId
+      }
+   }
+`;

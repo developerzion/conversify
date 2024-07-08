@@ -3,14 +3,12 @@
 import React from "react";
 import MainLayout from "../components/hoc/layout/main-layout";
 import Image from "next/image";
-import {
-   // ChatBubbleLeftIcon,
-   MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import useUserState from "../store/hooks/useUserState";
 import Hamburger from "../components/shared/hamburger";
 import Chat from "../components/chat/chat";
-// import NoChat from "../components/chat/noChat";
+// ChatBubbleLeftIcon,
+import NoChat from "../components/chat/noChat";
 // import ChatDrawer from "../components/chat/chatDrawer";
 
 const Index = () => {
@@ -20,7 +18,7 @@ const Index = () => {
 
    return (
       <MainLayout>
-         <div className="py-[1.5rem] mt-[.1rem] max-w-6xl m-auto bg-[#FEFEFE] px-3">
+         <div className="px-2 md:px-0 py-[1.5rem] mt-[.1rem] max-w-6xl m-auto bg-[#FEFEFE]">
             <Hamburger title="Chat App" path="Messenger" />
 
             <div className="flex mt-5 border w-full rounded-lg h-[35rem] p-0">
@@ -100,9 +98,9 @@ const Index = () => {
 
                <div className="w-[100%] md:w-[73%] relative">
                   {/* ================ No Chat section =============  */}
-                  {/* <NoChat /> */}
+                  <NoChat />
                   {/* ================ Chat section =============  */}
-                  <Chat />
+                  {/* <Chat /> */}
                </div>
             </div>
          </div>

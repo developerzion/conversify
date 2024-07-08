@@ -30,7 +30,7 @@ export default function RootLayout({
                <PersistGate loading={null} persistor={persistor}>
                   <ApolloProvider client={apolloClient}>
                      <ToastContainer
-                        position="bottom-right"
+                        position="top-right"
                         autoClose={5000}
                         hideProgressBar={false}
                         newestOnTop={false}

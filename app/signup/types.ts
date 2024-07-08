@@ -22,7 +22,7 @@ export const initialValues: TInitialState = {
 
 export const SignUpSchema = Yup.object().shape({
    fullName: Yup.string().min(2).required("Full name is required"),
-   email: Yup.string().email("Invalid email").required("Email is required"),
+   email: Yup.string().email("Invalid email").required("User email is required"),
    username: Yup.string().min(2).required("Username is required"),
    password: Yup.string().min(2).required("Password is required"),
    confirmPassword: Yup.string()
