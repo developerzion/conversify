@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { TUser } from "../types/userTypes";
-import { UserModel } from "@/lib/types/graphql";
+import { UserModel } from "@/lib/types/gql/graphql";
 
 const initialState: TUser = {
    user: {

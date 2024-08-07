@@ -1,17 +1,26 @@
 import { GetFriendsQuery } from "@/lib/types/gql/graphql";
 import Image from "next/image";
 import React from "react";
+import { useAppDispatch } from "@/app/store/utils/useAppDispatch";
+import { selectChatUser } from "@/app/store/features/chatSlice";
 
 interface IProps {
    row: GetFriendsQuery["getFriends"][number];
 }
 
 const ChatDesktopRow = ({ row }: IProps) => {
+   const dispatch = useAppDispatch();
+
+   const handleUserSelected = () => {
+      dispatch(selectChatUser(row))
+   }
+
+
    const {
       receiver: { name, avatarUrl },
    } = row;
    return (
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full hover:bg-[#F2F6FF] cursor-pointer px-5 py-3" onClick={handleUserSelected}>
          <div className="flex items-center gap-3">
             <div className="relative">
                <Image src={avatarUrl} alt="" width={100} height={100} className="w-[40px] h-[40px] rounded-full" />

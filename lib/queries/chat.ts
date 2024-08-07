@@ -19,3 +19,39 @@ export const GET_FRIENDS = gql`
       }
    }
 `;
+
+export const GET_MESSAGES = gql`
+   query getMessages($receiverId: String!) {
+      getMessages(receiverId: $receiverId) {
+         messageId
+         senderId
+         receiverId
+         message
+         createdAt
+         edited
+         updatedAt
+         delivered
+         read
+         sender {
+            userId
+            name
+            email
+            avatarUrl
+            username
+            password
+            createdAt
+            updatedAt
+         }
+         receiver {
+            userId
+            name
+            email
+            avatarUrl
+            username
+            password
+            createdAt
+            updatedAt
+         }
+      }
+   }
+`;

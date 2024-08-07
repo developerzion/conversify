@@ -16,7 +16,9 @@ const ChatDesktopView = () => {
    const [friends, setFriends] = useState([]);
    const [search, setSearch] = useState<string>("");
 
-   const { data, loading } = useQuery(GET_FRIENDS);
+   const { data, loading } = useQuery(GET_FRIENDS, {
+      fetchPolicy: "network-only",
+   });
    const rows = data?.getFriends || [];
 
    useEffect(() => {
@@ -38,7 +40,7 @@ const ChatDesktopView = () => {
 
    return (
       <>
-         <div className="flex items-center gap-3">
+         <div className="flex items-center gap-3 px-5">
             <div className="relative">
                <Image src={avatarUrl} alt="" width={100} height={100} className="w-[50px] h-[50px] rounded-full" />
                <div className="bg-[#14DEB9] w-[8px] h-[8px] rounded-full absolute right-0 top-8" />
@@ -49,7 +51,7 @@ const ChatDesktopView = () => {
             </div>
          </div>
 
-         <div className="relative mt-8">
+         <div className="relative mt-8 px-5">
             <input
                type="text"
                value={search}
