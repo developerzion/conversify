@@ -52,9 +52,9 @@ const Chat = () => {
       })
          .then((data) => {
             console.log(data);
-            setMessage("");
          })
          .catch((err) => console.log(err.message));
+      setMessage("");
    };
 
    const sendMessageHandler = (event: KeyboardEvent<HTMLInputElement>) => {
