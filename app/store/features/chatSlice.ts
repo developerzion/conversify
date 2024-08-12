@@ -15,8 +15,8 @@ const initialState: TChat = {
          avatarUrl: "",
          username: "",
          password: "",
-         createdAt: new Date(0),
-         updatedAt: new Date(0),
+         createdAt: "", //new Date(0),
+         updatedAt: "", //new Date(0),
       },
    },
 };

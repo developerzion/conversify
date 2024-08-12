@@ -4,6 +4,12 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import useChatState from "@/app/store/hooks/chatState";
 import { closeChatModal } from "@/app/store/features/chatSlice";
+import ChatLoader from "../shared/chatLoader";
+import ChatDesktopRow from "./chatDesktopRow";
+import { GetFriendsQuery } from "@/lib/types/gql/graphql";
+import { useEffect, useState } from "react";
+import { GET_FRIENDS } from "@/lib/queries/chat";
+import { useQuery } from "@apollo/client";
 
 function ChatDrawer() {
    const dispatch = useAppDispatch();
@@ -17,6 +23,31 @@ function ChatDrawer() {
       dispatch(closeChatModal());
    };
 
+   const [friends, setFriends] = useState([]);
+   const [search, setSearch] = useState<string>("");
+
+   const { data, loading } = useQuery(GET_FRIENDS, {
+      fetchPolicy: "network-only",
+   });
+   const rows = data?.getFriends || [];
+
+   useEffect(() => {
+      setFriends(data?.getFriends);
+   }, [data]);
+
+   useEffect(() => {
+      if (search.length) {
+         const friendResult = friends.filter((friend: GetFriendsQuery["getFriends"][number]) => {
+            const receiverName = friend.receiver.name.toLowerCase();
+            const searchTerm = search.toLowerCase();
+            return receiverName.indexOf(searchTerm) !== -1;
+         });
+         setFriends(friendResult);
+      } else {
+         setFriends(rows);
+      }
+   }, [search, rows]);
+
    return (
       <div className="flex md:hidden">
          <div
@@ -24,13 +55,13 @@ function ChatDrawer() {
                open ? "" : "-translate-x-full"
             } bg-white shadow-lg peer-checked:translate-x-0`}
          >
-            <div className="px-6 pt-5 pb-4">
-               <div className="w-full flex justify-end">
+            <div className="pt-5 pb-4">
+               <div className="w-full flex justify-end pr-3">
                   <XMarkIcon className="w-[25px]" onClick={toggleDrawer} />
                </div>
 
                <div className="h-full">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 px-6">
                      <div className="relative">
                         <Image
                            src={avatarUrl}
@@ -47,65 +78,33 @@ function ChatDrawer() {
                      </div>
                   </div>
 
-                  <div className="relative mt-6">
+                  <div className="relative mt-6 px-6">
                      <input
                         type="text"
                         placeholder="Search contact"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         className="w-full px-4 border-[1px] border-[#DFE5EF] py-[.4rem] rounded-[7px] outline-[#5C87FF] text-[13px]"
                      />
-                     <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
+                     <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute right-9 top-1/2 transform -translate-y-1/2" />
                   </div>
 
-                  <div className="flex flex-col gap-6 h-full overflow-y-scroll w-full mt-4">
-                     <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-3">
-                           <div className="relative">
-                              <Image
-                                 src="https://res.cloudinary.com/dyfmkjtkr/image/upload/v1718236544/user-10_nd5hgv.jpg"
-                                 alt=""
-                                 width={100}
-                                 height={100}
-                                 className="w-[40px] h-[40px] rounded-full"
-                              />
-                              <div className="bg-[#14DEB9] w-[8px] h-[8px] rounded-full absolute right-0 top-7" />
-                           </div>
-                           <div className="flex flex-col">
-                              <h2 className="text-[13px] font-[500]">James Johnson</h2>
-                              <div className="flex items-center font-[200] gap-1 text-[11px]">
-                                 You: La ub jiromu fik su.
-                              </div>
-                           </div>
+                  <div className="flex flex-col gap-6 h-full overflow-y-scroll w-full px-2">
+                     {loading ? (
+                        <div className="px-6">
+                           <ChatLoader />
                         </div>
-                        <span className="text-[12px] font-[300]">14 hours</span>
-                     </div>
-
-                     <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-3">
-                           <div className="relative">
-                              <Image
-                                 src="https://res.cloudinary.com/dyfmkjtkr/image/upload/v1718236544/user-6_mbgys2.webp"
-                                 alt=""
-                                 width={100}
-                                 height={100}
-                                 className="w-[40px] h-[40px] rounded-full"
-                              />
-                              <div className="bg-[#FFAE20] w-[8px] h-[8px] rounded-full absolute right-0 top-7" />
-                           </div>
-                           <div className="flex flex-col">
-                              <h2 className="text-[13px] font-[500]">Maria Hernandez</h2>
-                              <div className="flex items-center font-[200] gap-1 text-[11px]">
-                                 You: La ub jiromu fik su.
-                              </div>
-                           </div>
+                     ) : friends?.length ? (
+                        <div className="flex flex-col gap-5 h-full overflow-y-scroll w-full mt-4">
+                           {friends.map((row: GetFriendsQuery["getFriends"][number], idx: number) => {
+                              return <ChatDesktopRow row={row} key={idx} />;
+                           })}
                         </div>
-                        <span className="text-[12px] font-[300]">12 mins</span>
-                     </div>
+                     ) : (
+                        <div className="px-6 mt-5 text-[13px]">No active friends</div>
+                     )}
                   </div>
                </div>
-               {/* <h2 className="text-lg font-semibold" onClick={toggleDrawer}>
-                  Drawer
-               </h2>
-               <p className="text-gray-500">This is a drawer.</p> */}
             </div>
          </div>
       </div>

@@ -2,7 +2,7 @@ import { GetFriendsQuery } from "@/lib/types/gql/graphql";
 import Image from "next/image";
 import React from "react";
 import { useAppDispatch } from "@/app/store/utils/useAppDispatch";
-import { selectChatUser } from "@/app/store/features/chatSlice";
+import { closeChatModal, selectChatUser } from "@/app/store/features/chatSlice";
 
 interface IProps {
    row: GetFriendsQuery["getFriends"][number];
@@ -13,6 +13,7 @@ const ChatDesktopRow = ({ row }: IProps) => {
 
    const handleUserSelected = () => {
       dispatch(selectChatUser(row))
+      dispatch(closeChatModal());
    }
 
 
