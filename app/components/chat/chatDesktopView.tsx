@@ -59,11 +59,13 @@ const ChatDesktopView = () => {
                placeholder="Search contact"
                className="w-full px-4 border-[1px] border-[#DFE5EF] py-[.4rem] rounded-[7px] outline-[#5C87FF] text-[13px]"
             />
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
+            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute right-6 top-1/2 transform -translate-y-1/2" />
          </div>
 
          {loading ? (
-            <ChatLoader />
+            <div className="px-6">
+               <ChatLoader />
+            </div>
          ) : friends?.length ? (
             <div className="flex flex-col gap-5 h-full overflow-y-scroll w-full mt-4">
                {friends.map((row: GetFriendsQuery["getFriends"][number], idx: number) => {
@@ -71,7 +73,7 @@ const ChatDesktopView = () => {
                })}
             </div>
          ) : (
-            <div className="mt-5 text-[13px]">No active friends</div>
+            <div className="px-6 mt-5 text-[13px]">No active friends</div>
          )}
       </>
    );

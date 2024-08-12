@@ -28,7 +28,7 @@ const ChatDesktopRow = ({ row }: IProps) => {
             </div>
             <div className="flex flex-col">
                <h2 className="text-[13px] font-[500]">{name}</h2>
-               <div className="flex items-center font-[200] gap-1 text-[11px]">You: La ub jiromu fik su.</div>
+               <div className="flex items-center font-[200] gap-1 text-[11px]">You: ...</div>
             </div>
          </div>
          <span className="text-[12px] font-[300]">14 hours</span>

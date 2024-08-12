@@ -1,21 +1,22 @@
-import React, { KeyboardEvent, useState } from "react";
-import {
-   Bars3Icon,
-   EllipsisVerticalIcon,
-   PaperAirplaneIcon,
-   // PaperClipIcon,
-   // PhotoIcon,
-} from "@heroicons/react/24/outline";
-import { useQuery } from "@apollo/client";
+import React, { KeyboardEvent, useState, useRef, useEffect } from "react";
+import { Bars3Icon, EllipsisVerticalIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import { useMutation, useQuery } from "@apollo/client";
 import Image from "next/image";
 import ChatDrawer from "./chatDrawer";
 import { openChatModal } from "@/app/store/features/chatSlice";
 import { useAppDispatch } from "@/app/store/utils/useAppDispatch";
 import useChatState from "@/app/store/hooks/chatState";
 import { GET_MESSAGES } from "@/lib/queries/chat";
+import { SEND_MESSAGE } from "@/lib/mutations/chat";
+import ChatReturnRow from "./chatReturnRow";
+import Loader from "../shared/loader";
+import { GetMessagesQuery } from "@/lib/types/gql/graphql";
+
+export type GetMessages = GetMessagesQuery["getMessages"];
 
 const Chat = () => {
    const dispatch = useAppDispatch();
+   const containerRef = useRef<HTMLDivElement>(null);
 
    const {
       selectedUser: {
@@ -23,12 +24,13 @@ const Chat = () => {
       },
    } = useChatState();
 
-   const { loading, error, data } = useQuery(GET_MESSAGES, {
+   const { loading, data } = useQuery(GET_MESSAGES, {
       variables: { receiverId: userId },
       fetchPolicy: "network-only",
+      pollInterval: 100,
    });
 
-   console.log(data);
+   const messages: GetMessages = data?.getMessages || [];
 
    const {
       selectedUser: {
@@ -38,32 +40,36 @@ const Chat = () => {
 
    const [message, setMessage] = useState<string>("");
 
+   useEffect(() => {
+      if (containerRef.current) {
+         containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      }
+   }, [messages]);
+
+   const send = () => {
+      sendMessage({
+         variables: { receiverId: userId, message },
+      })
+         .then((data) => {
+            console.log(data);
+            setMessage("");
+         })
+         .catch((err) => console.log(err.message));
+   };
+
    const sendMessageHandler = (event: KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
          event.preventDefault();
-         console.log("Message sent:", message);
-         setMessage("");
+         if (message === "") return;
+         send();
       }
    };
+
+   const [sendMessage] = useMutation(SEND_MESSAGE);
    const sendMessageHandlerBtn = () => {
-      console.log("Message sent:", message);
-      setMessage("");
+      if (message === "") return;
+      send();
    };
-
-   // const fileInputRef = useRef<HTMLInputElement>(null);
-
-   // const handleIconClick = () => {
-   //    if (fileInputRef.current) {
-   //       fileInputRef.current.click();
-   //    }
-   // };
-
-   // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-   //    const file = event.target.files?.[0];
-   //    if (file) {
-   //       console.log("Selected file:", file);
-   //    }
-   // };
 
    const toggleDrawer = () => dispatch(openChatModal());
 
@@ -88,34 +94,14 @@ const Chat = () => {
             <EllipsisVerticalIcon className="w-[35px] p-[4px] rounded-full hover:bg-[#f9f9f9] cursor-pointer" />
          </div>
 
-         <div className="p-[1rem]">
-            <div className="">
-               <div className="flex gap-3 mb-6">
-                  <Image
-                     src="https://res.cloudinary.com/dyfmkjtkr/image/upload/v1718236544/user-10_nd5hgv.jpg"
-                     alt=""
-                     width={80}
-                     height={80}
-                     className="w-[35px] h-[35px] rounded-full"
-                  />
-                  <div>
-                     <span className="text-[12px] font-[300]">Maria Mendex, 15 mins ago</span>
-                     <div className="max-w-[30rem] mt-1 py-2 px-3 rounded-lg bg-[#F2F6FA] text-[13px]">
-                        Ak upwiwge mikolhi wefti gidjunip mewvi updole kogva tewode fa.
-                     </div>
-                  </div>
-               </div>
-
-               <div className="flex justify-end gap-3 mb-3">
-                  <div>
-                     <span className="text-[12px] font-[300]">Samuel Moses, 15 mins ago</span>
-                     <div className="max-w-[30rem] mt-1 py-2 px-3 rounded-lg bg-[#ECF2FF] text-[13px]">
-                        Ak upwiwge mikolhi wefti gidjunip mewvi updole kogva tewode fa. kfsjkfs fj sdkfjlksjdf
-                        lsjdfklsjdkl sdjsldf
-                     </div>
-                  </div>
-               </div>
-            </div>
+         <div className="p-[1rem] overflow-scroll h-[25.6rem]" ref={containerRef}>
+            {loading ? (
+               <Loader />
+            ) : (
+               messages.map((message: GetMessages[number], key) => {
+                  return <ChatReturnRow key={key} message={message} />;
+               })
+            )}
          </div>
 
          <div className="absolute bottom-0 border-t-[1px] w-full rounded-br-lg px-[1rem] py-[1rem] flex">
