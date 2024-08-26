@@ -13,7 +13,7 @@ export default function Profile() {
 
    const logoutHandler = () => {
       dispatch(logout());
-      window.location.href = "/signin";
+      window.location.href = "/";
    };
 
    return (

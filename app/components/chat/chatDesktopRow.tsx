@@ -16,7 +16,6 @@ const ChatDesktopRow = ({ row }: IProps) => {
       dispatch(closeChatModal());
    }
 
-
    const {
       receiver: { name, avatarUrl },
    } = row;

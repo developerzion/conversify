@@ -16,7 +16,7 @@ const MainLayout = ({ children }: IProps) => {
 
    useEffect(() => {
       if (!data && !loading) {
-         router.push("/signin");
+         router.push("/");
       }
    }, [data, loading, router]);
 
