@@ -26,7 +26,8 @@ export const GET_MESSAGES = gql`
          messageId
          senderId
          receiverId
-         message
+         receiverMsg
+         senderMsg
          createdAt
          edited
          updatedAt
